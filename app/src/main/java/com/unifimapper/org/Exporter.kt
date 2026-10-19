@@ -7,6 +7,7 @@ import android.graphics.Paint
 import org.json.JSONArray
 import org.json.JSONObject
 import java.util.Locale
+import kotlin.math.min
 
 /** Exports: PNG map image (with title block), OBJ 3D model (3ds Max), JSON report. */
 object Exporter {

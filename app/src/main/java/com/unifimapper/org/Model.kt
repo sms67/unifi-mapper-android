@@ -54,9 +54,9 @@ class APRecord(
     val height: Float,      // ارتفاع نصب (متر)
     val status: String,     // «موجود» / «پیشنهادی»
     val note: String,
-    val area: String,
-    val x: Float?,          // موقعیت دستی روی نقشه
-    val y: Float?,
+    var area: String,       // ناحیه — با جانمایی تغییر می‌کند
+    var x: Float?,          // موقعیت دستی روی نقشه
+    var y: Float?,
     val source: String,     // «دستی» / «اسکن» / «دمو»
     val time: String
 )
