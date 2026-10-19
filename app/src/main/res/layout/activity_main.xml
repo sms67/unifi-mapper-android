@@ -1,0 +1,849 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F6F1E8">
+
+    <ScrollView
+        android:id="@+id/mainScroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
+
+            <!-- notice bar -->
+            <TextView
+                android:id="@+id/txtNotice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_notice"
+                android:padding="10dp"
+                android:textColor="#382C20"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <!-- header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#FFFAF1"
+                android:padding="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ابزار میدانی · ثبت دستی و شفاف"
+                    android:textColor="#814821"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/app_name"
+                        android:textColor="#302E28"
+                        android:textSize="21sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/btnSettingsToggle"
+                        style="@style/App.Btn"
+                        android:text="تنظیمات و راهنما" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtActiveLabel"
+                    style="@style/App.Badge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="پروژه‌ای انتخاب نشده" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <!-- ═══ SETTINGS SECTION ═══ -->
+                <LinearLayout
+                    android:id="@+id/screenSettings"
+                    style="@style/App.Panel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView style="@style/App.SectionTitle" android:text="تنظیمات پروژه" />
+
+                    <TextView style="@style/App.Label" android:text="نام سازمان" />
+                    <EditText android:id="@+id/inpSettingOrg" style="@style/App.Field" android:inputType="text" />
+
+                    <TextView style="@style/App.Label" android:text="ارتفاع نصب پیش‌فرض · متر" />
+                    <EditText android:id="@+id/inpSettingHeight" style="@style/App.Field" android:inputType="numberDecimal" android:text="2.7" />
+
+                    <TextView style="@style/App.Label" android:text="زاویه شمال نقشه · درجه" />
+                    <EditText android:id="@+id/inpSettingNorth" style="@style/App.Field" android:inputType="number" android:text="0" />
+
+                    <TextView style="@style/App.Label" android:text="دقت هدف · متر" />
+                    <EditText android:id="@+id/inpSettingAccuracy" style="@style/App.Field" android:inputType="numberDecimal" android:text="1" />
+
+                    <TextView
+                        android:id="@+id/txtPermissionSummary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        style="@style/App.Soft"
+                        android:textSize="12sp"
+                        android:text="دوربین: درخواست نشده · اسکن وای‌فای: نیازمند مجوز موقعیت" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+
+                        <Button
+                            android:id="@+id/btnCameraPerm"
+                            style="@style/App.Btn"
+                            android:text="درخواست مجوز دوربین" />
+
+                        <Button
+                            android:id="@+id/btnSaveSettings"
+                            style="@style/App.BtnAccent"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/bg_btn_accent"
+                            android:text="ذخیره تنظیمات"
+                            android:textColor="#FFFAF1" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btnDeleteProject"
+                            style="@style/App.BtnDanger"
+                            android:text="پاک‌سازی پروژه" />
+
+                        <Button
+                            android:id="@+id/btnConfirmDelete"
+                            style="@style/App.BtnDanger"
+                            android:layout_marginStart="8dp"
+                            android:text="تأیید حذف کامل پروژه"
+                            android:visibility="gone" />
+
+                        <Button
+                            android:id="@+id/btnCancelDelete"
+                            style="@style/App.Btn"
+                            android:layout_marginStart="8dp"
+                            android:text="انصراف"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <TextView style="@style/App.Label" android:text="راهنمای دقت و محدودیت‌ها" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:lineSpacingMultiplier="1.4"
+                        android:textColor="#635E53"
+                        android:text="ثبت نقاط و جانمایی دستی و تقریبی است. تصویر دوربین به معنی تشخیص سطح یا SLAM نیست. اسکن وای‌فای از WifiManager دستگاه انجام می‌شود و نتایج به‌عنوان پیشنهاد در فرم ثبت می‌شوند؛ پیش از تصمیم اجرایی، مقیاس، پوشش و تداخل را با ابزار مناسب در محل کنترل کنید." />
+                </LinearLayout>
+
+                <!-- ═══ PAGE: PROJECTS ═══ -->
+                <LinearLayout
+                    android:id="@+id/screenProjects"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView style="@style/App.SectionTitle" android:text="پروژه‌های برداشت" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:textColor="#635E53"
+                                android:text="پروژه تازه بسازید یا برداشت نیمه‌تمام را ادامه دهید." />
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/btnOpenDemo"
+                            style="@style/App.Btn"
+                            android:layout_marginStart="8dp"
+                            android:text="پروژه نمونه · DEMO" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/App.Panel" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="12dp">
+                        <TextView style="@style/App.SectionTitle" android:text="پروژه جدید" />
+                        <TextView style="@style/App.Label" android:text="نام پروژه" />
+                        <EditText android:id="@+id/inpProjName" style="@style/App.Field" android:inputType="text" android:maxLength="100" />
+                        <TextView style="@style/App.Label" android:text="نام سازمان" />
+                        <EditText android:id="@+id/inpOrg" style="@style/App.Field" android:inputType="text" />
+                        <TextView style="@style/App.Label" android:text="سایت" />
+                        <EditText android:id="@+id/inpSite" style="@style/App.Field" android:inputType="text" />
+                        <TextView style="@style/App.Label" android:text="ساختمان" />
+                        <EditText android:id="@+id/inpBuilding" style="@style/App.Field" android:inputType="text" />
+                        <TextView style="@style/App.Label" android:text="توضیح" />
+                        <EditText android:id="@+id/inpDescription" style="@style/App.Field" android:inputType="textMultiLine" android:minLines="2" />
+                        <TextView style="@style/App.Label" android:text="تاریخ برداشت" />
+                        <EditText
+                            android:id="@+id/inpSurveyDate"
+                            style="@style/App.Field"
+                            android:inputType="none"
+                            android:focusable="false"
+                            android:clickable="true"
+                            android:cursorVisible="false" />
+                        <Button
+                            android:id="@+id/btnCreateProject"
+                            style="@style/App.BtnAccent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:background="@drawable/bg_btn_accent"
+                            android:text="ساخت پروژه"
+                            android:textColor="#FFFAF1" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/App.Panel" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="12dp">
+                        <TextView style="@style/App.SectionTitle" android:text="پروژه‌های اخیر" />
+                        <LinearLayout
+                            android:id="@+id/listProjects"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- ═══ PAGE: SURVEY ═══ -->
+                <LinearLayout
+                    android:id="@+id/screenSurvey"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView style="@style/App.SectionTitle" android:text="برداشت ناحیه" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="12sp"
+                                android:textColor="#635E53"
+                                android:text="مسیر و موانع را دستی ثبت کنید؛ همه نماها از یک مدل مشترک ساخته می‌شوند." />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txtSurveyBadge"
+                            style="@style/App.Badge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/statusCards"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="10dp" />
+
+                    <LinearLayout style="@style/App.Panel" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="12dp">
+                        <TextView style="@style/App.SectionTitle" android:text="طبقه یا ناحیه" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="8dp">
+                            <EditText
+                                android:id="@+id/inpAreaName"
+                                style="@style/App.Field"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:inputType="text"
+                                android:hint="نام ناحیه" />
+                            <Button
+                                android:id="@+id/btnAreaAdd"
+                                style="@style/App.BtnAccent"
+                                android:layout_marginStart="8dp"
+                                android:background="@drawable/bg_btn_accent"
+                                android:text="افزودن ناحیه"
+                                android:textColor="#FFFAF1" />
+                        </LinearLayout>
+                        <TextView style="@style/App.Label" android:text="ناحیه فعال" />
+                        <Spinner
+                            android:id="@+id/selAreaSelect"
+                            style="@style/App.Field"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <TextView style="@style/App.Label" android:text="ارتفاع تقریبی سقف · متر" />
+                        <EditText
+                            android:id="@+id/inpCeiling"
+                            style="@style/App.Field"
+                            android:inputType="numberDecimal"
+                            android:text="2.7" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/App.Panel" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="12dp">
+                        <TextView style="@style/App.SectionTitle" android:text="کالیبراسیون مقیاس" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:textSize="12sp"
+                            android:textColor="#635E53"
+                            android:text="طول دیوار یا فاصله معلوم را با متر واقعی بررسی و وارد کنید." />
+                        <TextView style="@style/App.Label" android:text="فاصله مرجع معلوم · متر" />
+                        <EditText
+                            android:id="@+id/inpReference"
+                            style="@style/App.Field"
+                            android:inputType="numberDecimal" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+                            <Button
+                                android:id="@+id/btnCalibrate"
+                                style="@style/App.BtnAccent"
+                                android:background="@drawable/bg_btn_accent"
+                                android:text="ثبت کالیبراسیون"
+                                android:textColor="#FFFAF1" />
+                            <Button
+                                android:id="@+id/btnScaleLock"
+                                style="@style/App.Btn"
+                                android:layout_marginStart="8dp"
+                                android:text="قفل مقیاس" />
+                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/txtCalibrationState"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textSize="12sp"
+                            android:textColor="#635E53"
+                            android:text="مقیاس هنوز کالیبره نشده است." />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/App.Panel" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="12dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+                            <HorizontalScrollView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:scrollbars="none">
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+                                    <Button
+                                        android:id="@+id/btnViewCamera"
+                                        style="@style/App.BtnAccent"
+                                        android:background="@drawable/bg_btn_accent"
+                                        android:text="نمای دوربین"
+                                        android:textColor="#FFFAF1" />
+                                    <Button
+                                        android:id="@+id/btnViewTop"
+                                        style="@style/App.Btn"
+                                        android:layout_marginStart="6dp"
+                                        android:text="نمای بالا" />
+                                    <Button
+                                        android:id="@+id/btnViewPersp"
+                                        style="@style/App.Btn"
+                                        android:layout_marginStart="6dp"
+                                        android:text="پرسپکتیو ۶۰°" />
+                                </LinearLayout>
+                            </HorizontalScrollView>
+                            <Button
+                                android:id="@+id/btnCamStart"
+                                style="@style/App.Btn"
+                                android:layout_marginStart="8dp"
+                                android:text="فعال‌کردن دوربین" />
+                        </LinearLayout>
+
+                        <!-- camera pane -->
+                        <FrameLayout
+                            android:id="@+id/paneCamera"
+                            style="@style/App.View"
+                            android:layout_width="match_parent"
+                            android:layout_height="360dp"
+                            android:layout_marginTop="10dp">
+                            <androidx.camera.view.PreviewView
+                                android:id="@+id/previewView"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                            <com.unifimapper.org.CamHud
+                                android:id="@+id/camHud"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                            <TextView
+                                android:id="@+id/txtCameraMessage"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_margin="10dp"
+                                style="@style/App.Soft"
+                                android:textSize="12sp"
+                                android:text="دوربین: درخواست نشده · ردیابی خودکار فعال نیست؛ ثبت دستی روی نمای بالا." />
+                        </FrameLayout>
+
+                        <!-- top pane -->
+                        <FrameLayout
+                            android:id="@+id/paneTop"
+                            style="@style/App.View"
+                            android:layout_width="match_parent"
+                            android:layout_height="360dp"
+                            android:layout_marginTop="10dp"
+                            android:visibility="gone">
+                            <com.unifimapper.org.TopView
+                                android:id="@+id/topSurvey"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top|start"
+                                android:layout_margin="8dp"
+                                style="@style/App.Badge"
+                                android:text="شمال ↑ · شبکه ۱ متر / کالیبراسیون دستی" />
+                        </FrameLayout>
+
+                        <!-- perspective pane -->
+                        <FrameLayout
+                            android:id="@+id/panePersp"
+                            style="@style/App.View"
+                            android:layout_width="match_parent"
+                            android:layout_height="360dp"
+                            android:layout_marginTop="10dp"
+                            android:visibility="gone">
+                            <com.unifimapper.org.PerspectiveView
+                                android:id="@+id/perspSurvey"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top|start"
+                                android:layout_margin="8dp"
+                                style="@style/App.Badge"
+                                android:text="پرسپکتیو ۶۰° · چرخش با کشیدن" />
+                        </FrameLayout>
+
+                        <HorizontalScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:scrollbars="none">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <Button
+                                    android:id="@+id/btnScanToggle"
+                                    style="@style/App.BtnAccent"
+                                    android:background="@drawable/bg_btn_accent"
+                                    android:text="شروع برداشت دستی"
+                                    android:textColor="#FFFAF1" />
+                                <Button android:id="@+id/btnAddPoint" style="@style/App.Btn" android:layout_marginStart="6dp" android:text="ثبت نقطه" />
+                                <Button android:id="@+id/btnAddWall" style="@style/App.Btn" android:layout_marginStart="6dp" android:text="ثبت دیوار" />
+                                <Button android:id="@+id/btnAddObstacle" style="@style/App.Btn" android:layout_marginStart="6dp" android:text="ثبت مانع" />
+                                <Button android:id="@+id/btnAddRoom" style="@style/App.Btn" android:layout_marginStart="6dp" android:text="ثبت اتاق" />
+                                <Button android:id="@+id/btnUndoPoint" style="@style/App.Btn" android:layout_marginStart="6dp" android:text="لغو آخرین نقطه" />
+                                <Button android:id="@+id/btnSaveSurvey" style="@style/App.BtnAccent" android:layout_marginStart="6dp" android:background="@drawable/bg_btn_accent" android:text="ذخیره برداشت" android:textColor="#FFFAF1" />
+                                <Button android:id="@+id/btnFinishArea" style="@style/App.Btn" android:layout_marginStart="6dp" android:text="پایان ناحیه" />
+                            </LinearLayout>
+                        </HorizontalScrollView>
+
+                        <TextView
+                            android:id="@+id/txtSurveyInstructions"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textSize="12sp"
+                            android:textColor="#635E53"
+                            android:text="برای ثبت نقطه روی نمای بالا لمس کنید؛ دکمه «ثبت نقطه» نیز نقطه‌ای تقریبی در ادامه مسیر می‌افزاید. ردیابی خودکار انجام نمی‌شود." />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- ═══ PAGE: MAP ═══ -->
+                <LinearLayout
+                    android:id="@+id/screenMap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView style="@style/App.SectionTitle" android:text="نقشه و جانمایی" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textColor="#635E53"
+                        android:text="AP را انتخاب کنید، برای جانمایی روی نقشه لمس کنید و برای جابه‌جایی بکشید." />
+
+                    <LinearLayout style="@style/App.Panel" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="12dp">
+                        <TextView style="@style/App.Label" android:text="نمایش ناحیه" />
+                        <Spinner
+                            android:id="@+id/selMapArea"
+                            style="@style/App.Field"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <FrameLayout
+                            style="@style/App.View"
+                            android:layout_width="match_parent"
+                            android:layout_height="360dp"
+                            android:layout_marginTop="10dp">
+                            <com.unifimapper.org.TopView
+                                android:id="@+id/topPlacement"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top|start"
+                                android:layout_margin="8dp"
+                                style="@style/App.Badge"
+                                android:text="لمس برای جانمایی · کشیدن برای جابه‌جایی" />
+                        </FrameLayout>
+                        <CheckBox
+                            android:id="@+id/chkCoverage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="نمایش لایه تخمینی پوشش؛ پیش‌بینی قطعی نیست"
+                            android:textColor="#302E28"
+                            android:textSize="13sp" />
+                        <TextView
+                            android:id="@+id/txtNearestDistance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:textSize="12sp"
+                            android:textColor="#635E53"
+                            android:text="" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/App.Panel" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="12dp">
+                        <TextView style="@style/App.SectionTitle" android:text="اکسس‌پوینت انتخاب‌شده" />
+                        <TextView style="@style/App.Label" android:text="انتخاب AP" />
+                        <Spinner
+                            android:id="@+id/selPlacementAp"
+                            style="@style/App.Field"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/txtPlacementDetails"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            style="@style/App.Soft"
+                            android:textSize="12sp"
+                            android:text="برای جانمایی، ابتدا یک AP را انتخاب کنید." />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:textSize="12sp"
+                            android:textColor="#635E53"
+                            android:text="فاصله‌های نمایش‌داده‌شده هندسی و وابسته به نقاط دستی و کالیبراسیون هستند." />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- ═══ PAGE: APs ═══ -->
+                <LinearLayout
+                    android:id="@+id/screenAps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView style="@style/App.SectionTitle" android:text="اکسس‌پوینت‌ها" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        style="@style/App.Soft"
+                        android:textSize="12sp"
+                        android:text="در اندروید اسکن واقعی وای‌فای موجود است؛ نتایج به‌عنوان پیشنهاد وارد فرم می‌شوند و ثبت نهایی با تأیید شما انجام می‌شود. RSSI و BSSID واقعی دستگاه ثبت می‌شود." />
+
+                    <LinearLayout style="@style/App.Panel" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="12dp">
+                        <TextView style="@style/App.SectionTitle" android:text="ثبت دستی AP" />
+                        <TextView style="@style/App.Label" android:text="نام AP" />
+                        <EditText android:id="@+id/inpApName" style="@style/App.Field" android:inputType="text" />
+                        <TextView style="@style/App.Label" android:text="SSID" />
+                        <EditText android:id="@+id/inpSsid" style="@style/App.Field" android:inputType="text" />
+                        <TextView style="@style/App.Label" android:text="BSSID" />
+                        <EditText android:id="@+id/inpBssid" style="@style/App.Field" android:inputType="text" android:hint="در صورت مجاز بودن" />
+                        <TextView style="@style/App.Label" android:text="مدل UniFi" />
+                        <EditText android:id="@+id/inpApModel" style="@style/App.Field" android:inputType="text" android:hint="مثلاً U6 Pro" />
+                        <TextView style="@style/App.Label" android:text="باند" />
+                        <Spinner
+                            android:id="@+id/selBand"
+                            style="@style/App.Field"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <TextView style="@style/App.Label" android:text="قدرت سیگنال RSSI · dBm" />
+                        <EditText android:id="@+id/inpRssi" style="@style/App.Field" android:inputType="numberSigned" android:hint="در صورت اندازه‌گیری واقعی" />
+                        <TextView style="@style/App.Label" android:text="ارتفاع نصب · متر" />
+                        <EditText android:id="@+id/inpApHeight" style="@style/App.Field" android:inputType="numberDecimal" android:text="2.7" />
+                        <TextView style="@style/App.Label" android:text="وضعیت" />
+                        <Spinner
+                            android:id="@+id/selApStatus"
+                            style="@style/App.Field"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <TextView style="@style/App.Label" android:text="یادداشت" />
+                        <EditText android:id="@+id/inpApNote" style="@style/App.Field" android:inputType="text" />
+                        <Button
+                            android:id="@+id/btnApAdd"
+                            style="@style/App.BtnAccent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:background="@drawable/bg_btn_accent"
+                            android:text="افزودن اکسس‌پوینت"
+                            android:textColor="#FFFAF1" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/App.Panel" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="12dp">
+                        <TextView style="@style/App.SectionTitle" android:text="اسکن زنده وای‌فای دستگاه" />
+                        <Button
+                            android:id="@+id/btnWifiScan"
+                            style="@style/App.BtnAccent"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/bg_btn_accent"
+                            android:text="اسکن الآن"
+                            android:textColor="#FFFAF1" />
+                        <LinearLayout
+                            android:id="@+id/listWifi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginTop="8dp" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/App.Panel" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="12dp">
+                        <TextView style="@style/App.SectionTitle" android:text="فهرست و فیلتر APها" />
+                        <TextView style="@style/App.Label" android:text="جست‌وجو" />
+                        <EditText android:id="@+id/inpApSearch" style="@style/App.Field" android:inputType="text" />
+                        <TextView style="@style/App.Label" android:text="باند" />
+                        <Spinner
+                            android:id="@+id/selFilterBand"
+                            style="@style/App.Field"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <TextView style="@style/App.Label" android:text="قدرت سیگنال" />
+                        <Spinner
+                            android:id="@+id/selFilterSignal"
+                            style="@style/App.Field"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <TextView style="@style/App.Label" android:text="طبقه یا ناحیه" />
+                        <Spinner
+                            android:id="@+id/selFilterArea"
+                            style="@style/App.Field"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <LinearLayout
+                            android:id="@+id/listAps"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginTop="10dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- ═══ PAGE: EXPORT ═══ -->
+                <LinearLayout
+                    android:id="@+id/screenExport"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView style="@style/App.SectionTitle" android:text="خروجی پروژه" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textColor="#635E53"
+                        android:text="پیش‌نمایش نقشه، مدل تقریبی و اطلاعات ثبت‌شده؛ داده‌های DEMO با پروژه واقعی ترکیب نمی‌شوند." />
+
+                    <LinearLayout style="@style/App.Panel" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="12dp">
+                        <TextView style="@style/App.SectionTitle" android:text="کنترل کیفیت و اقدام اصلاحی" />
+                        <LinearLayout
+                            android:id="@+id/listQc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginTop="8dp" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/App.Panel" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="12dp">
+                        <TextView style="@style/App.SectionTitle" android:text="دریافت خروجی" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal">
+                            <Button
+                                android:id="@+id/btnExportPng"
+                                style="@style/App.BtnAccent"
+                                android:background="@drawable/bg_btn_accent"
+                                android:text="تصویر نمای بالا · PNG"
+                                android:textColor="#FFFAF1" />
+                            <Button android:id="@+id/btnExportObj" style="@style/App.Btn" android:layout_marginStart="6dp" android:text="مدل 3D · OBJ" />
+                            <Button android:id="@+id/btnExportJson" style="@style/App.Btn" android:layout_marginStart="6dp" android:text="گزارش · JSON" />
+                        </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textSize="12sp"
+                            android:textColor="#635E53"
+                            android:text="OBJ بر حسب متر و با محور Z رو به بالا ساخته می‌شود و در 3ds Max از مسیر File → Import قابل بازکردن است." />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/App.Panel" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="12dp">
+                        <TextView style="@style/App.SectionTitle" android:text="پیش‌نمایش نمای بالا" />
+                        <FrameLayout
+                            style="@style/App.View"
+                            android:layout_width="match_parent"
+                            android:layout_height="240dp"
+                            android:layout_marginTop="8dp">
+                            <com.unifimapper.org.TopView
+                                android:id="@+id/topPreview"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/App.Panel" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="12dp">
+                        <TextView style="@style/App.SectionTitle" android:text="پیش‌نمایش پرسپکتیو ۶۰°" />
+                        <FrameLayout
+                            style="@style/App.View"
+                            android:layout_width="match_parent"
+                            android:layout_height="240dp"
+                            android:layout_marginTop="8dp">
+                            <com.unifimapper.org.PerspectiveView
+                                android:id="@+id/perspPreview"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/App.Panel" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="12dp">
+                        <TextView style="@style/App.SectionTitle" android:text="جدول اکسس‌پوینت‌ها" />
+                        <LinearLayout
+                            android:id="@+id/listExportAps"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginTop="8dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- bottom nav -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#FFFAF1"
+        android:padding="6dp">
+
+        <Button
+            android:id="@+id/btnNavProjects"
+            style="@style/App.Btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:background="@drawable/bg_btn_accent"
+            android:text="پروژه‌ها"
+            android:textColor="#FFFAF1" />
+
+        <Button
+            android:id="@+id/btnNavSurvey"
+            style="@style/App.Btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:textSize="12sp"
+            android:text="برداشت" />
+
+        <Button
+            android:id="@+id/btnNavMap"
+            style="@style/App.Btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:textSize="12sp"
+            android:text="نقشه" />
+
+        <Button
+            android:id="@+id/btnNavAps"
+            style="@style/App.Btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:textSize="12sp"
+            android:text="اکسس‌پوینت‌ها" />
+
+        <Button
+            android:id="@+id/btnNavExport"
+            style="@style/App.Btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:textSize="12sp"
+            android:text="خروجی" />
+    </LinearLayout>
+</LinearLayout>

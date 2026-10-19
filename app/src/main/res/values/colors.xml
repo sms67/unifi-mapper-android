@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ink">#FF302E28</color>
+    <color name="muted">#FF635E53</color>
+    <color name="danger">#FF873F32</color>
+    <color name="navActive">#FFFFFAF1</color>
+    <color name="navIdle">#FF403A30</color>
+</resources>
