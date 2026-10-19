@@ -9,6 +9,8 @@
         <item name="android:navigationBarColor">#FFFAF1</item>
     </style>
 
+    <style name="App" />
+
     <style name="App.Panel">
         <item name="android:background">@drawable/bg_panel</item>
         <item name="android:padding">14dp</item>
