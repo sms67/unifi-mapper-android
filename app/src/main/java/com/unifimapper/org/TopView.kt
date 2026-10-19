@@ -126,13 +126,14 @@ class TopView @JvmOverloads constructor(
         // coverage layer (estimated, around placed APs)
         if (coverage) {
             for (a in aps) {
-                if (a.x == null || a.y == null) continue
-                val ax = w2sX(a.x, w); val ay = w2sY(a.y, h)
+                val ax = a.x ?: continue
+                val ay = a.y ?: continue
+                val sx = w2sX(ax, w); val sy = w2sY(ay, h)
                 val r = scale * 4f
-                pCover.shader = RadialGradient(ax, ay, r,
+                pCover.shader = RadialGradient(sx, sy, r,
                     intArrayOf(0x66A66135, 0x33CBA36A, 0x00CBA36A),
                     floatArrayOf(0f, 0.5f, 1f), Shader.TileMode.CLAMP)
-                canvas.drawRect(ax - r, ay - r, ax + r, ay + r, pCover)
+                canvas.drawRect(sx - r, sy - r, sx + r, sy + r, pCover)
             }
             pCover.shader = null
         }
@@ -168,13 +169,14 @@ class TopView @JvmOverloads constructor(
 
         // AP pins
         for (a in aps) {
-            if (a.x == null || a.y == null) continue
-            val ax = w2sX(a.x, w); val ay = w2sY(a.y, h)
+            val ax = a.x ?: continue
+            val ay = a.y ?: continue
+            val sx = w2sX(ax, w); val sy = w2sY(ay, h)
             pAp.color = if (a.source == "دمو") 0xFF9A7030.toInt() else 0xFF426D82.toInt()
-            canvas.drawCircle(ax, ay, 10f, pAp)
+            canvas.drawCircle(sx, sy, 10f, pAp)
             canvas.drawText(
                 if (a.source == "دمو") "DEMO · " + a.name else a.name,
-                ax + 12f, ay - 8f, pText
+                sx + 12f, sy - 8f, pText
             )
         }
 

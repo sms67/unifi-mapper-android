@@ -278,10 +278,11 @@ class PerspectiveView @JvmOverloads constructor(
 
         // access points at install height
         for (a in aps) {
-            if (a.x == null || a.y == null) continue
+            val ax = a.x ?: continue
+            val ay = a.y ?: continue
             val topZ = min(4f, if (a.height > 0f) a.height else 2.7f)
-            if (!cam.proj(a.x, a.y, 0f, w, h, pa)) continue
-            if (!cam.proj(a.x, a.y, topZ, w, h, pb)) continue
+            if (!cam.proj(ax, ay, 0f, w, h, pa)) continue
+            if (!cam.proj(ax, ay, topZ, w, h, pb)) continue
             val col = if (a.source == "دمو") 0xFF9A7030.toInt() else 0xFF426D82.toInt()
             pPole.color = col
             canvas.drawLine(pa[0], pa[1], pb[0], pb[1], pPole)
